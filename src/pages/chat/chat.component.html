@@ -1,0 +1,31 @@
+<div class="h-[80vh] flex flex-col bg-gray-50 rounded-xl p-4 overflow-hidden shadow-lg">
+
+  <!-- Message List -->
+  <div class="flex-1 overflow-y-auto space-y-2">
+    <div *ngFor="let item of messages">
+      <div [ngClass]="{'text-right': item.sender_id == '1', 'text-left': item.sender_id !== '1'}">
+        <div
+          [ngClass]="{
+            'bg-blue-500 text-white ml-auto': item.sender_id == '1',
+            'bg-gray-300 text-black mr-auto': item.sender_id !== '1'
+          }"
+          class="inline-block rounded-2xl px-4 py-2 max-w-xs break-words"
+        >
+          <div class="text-sm">{{ item.content }}</div>
+          <div class="text-[10px] text-gray-200 text-right mt-1" *ngIf="item.sender_id == '1'">You</div>
+          <div class="text-[10px] text-gray-600 text-left mt-1" *ngIf="item.sender_id !== '1'">{{ item.sender_id }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Box -->
+  <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" class="mt-4 flex items-center space-x-2">
+    <mat-form-field class="flex-1" appearance="fill">
+      <mat-label>Message</mat-label>
+      <input matInput formControlName="message" placeholder="Type a message..." />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Send</button>
+  </form>
+
+</div>
