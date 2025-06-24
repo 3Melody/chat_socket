@@ -1,0 +1,28 @@
+<div *ngIf="type == 'search'" class="p-3 rouded-lg">
+
+    <form [formGroup]="searchForm" (ngSubmit)="searchFriend()" class="mt-4 flex items-center space-x-2">
+    <mat-form-field class="flex-1" appearance="fill">
+      <mat-label>Message</mat-label>
+      <input matInput formControlName="username" placeholder="Type a message..." />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Search</button>
+  </form>
+  <div *ngFor="let item of dataFriend">
+    <div class="flex justify-between px-3 items-center">
+      <div>{{ item.username }}</div>
+    <button class="p-3 bg-blue-400 text-white rounded-lg" (click)="addFriend(item.id)">ส่งคำขอเป็นเพื่อน</button>
+  </div>
+  </div>
+</div>
+
+<div *ngIf="type == 'notification'">
+  <div>รายชื่อคําขอเป็นเพื่อน</div>
+  <div *ngFor="let item of listFriend">
+    <div class="flex justify-between px-3 items-center">
+      <div>{{ item.id }}</div>
+      <button class="p-3 bg-blue-400 text-white rounded-lg" (click)="accept(item.id)">รับเป็นเพื่อน</button>
+    </div>
+
+  </div>
+
+</div>

@@ -32,13 +32,9 @@ export class ChatService implements OnDestroy {
     const token = localStorage.getItem('token');
 if (token) {
   const decoded: any = jwtDecode(token);
-  console.log('Decoded JWT:', decoded);
-
-  // ตัวอย่างการใช้
   const username = decoded.sub;
 
   this.UserData = JSON.parse(username);
-  console.log("🚀 ~ ChatService ~ tokenDecode ~ this.UserData:", this.UserData)
 }
 
 
@@ -105,6 +101,8 @@ if (token) {
       console.error('WebSocket not connected');
     }
   }
+
+
 
   ngOnDestroy() {
 

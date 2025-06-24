@@ -6,10 +6,14 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MyDialogComponent } from '../../app/components/my-dialog/my-dialog.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSidenavModule} from '@angular/material/sidenav';
 @Component({
    standalone: true,
   selector: 'app-chat',
-  imports: [NgFor,CommonModule,MatFormFieldModule,MatInputModule,ReactiveFormsModule],
+  imports: [NgFor,CommonModule,MatFormFieldModule,MatInputModule,ReactiveFormsModule,MatSidenavModule,MatButtonModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 
@@ -19,10 +23,11 @@ export class ChatComponent implements OnInit , OnDestroy{
   private sub!: Subscription
   messages: any[] = [];
   message = '';
+  showFiller = false;
 
   messageForm: FormGroup
 
-  constructor(private chatService: ChatService , private _FormBuilder: FormBuilder) {
+  constructor(private chatService: ChatService , private _FormBuilder: FormBuilder , private dialog: MatDialog) {
 
     this.messageForm = this._FormBuilder.group({ message: '' });
    }
@@ -46,6 +51,23 @@ export class ChatComponent implements OnInit , OnDestroy{
       this.chatService.sendMessage(msg);
 
     }
+
+    searchFriend() {
+
+    }
+
+    openDialog(type : any): void {
+       console.log('Dialog open');
+  const dialogRef = this.dialog.open(MyDialogComponent, {
+    width: '400px',
+    data: { type: type },
+
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('Dialog closed', result);
+  });
+}
 
     ngOnDestroy(): void {
     // this.sub.unsubscribe();
