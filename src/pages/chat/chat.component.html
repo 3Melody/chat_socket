@@ -3,8 +3,8 @@
     <div class="flex justify-center">รายชื่อเพื่อน</div>
 
       <div class="mt-3">
-          <div class="my-2 w-full">
-            <div class="py-3 px-5">username</div>
+          <div *ngFor="let item of friendList" class="my-2 w-full" (click)="openChat(item.id)">
+            <div class="py-3 px-5">{{item.username}}</div>
             <div class="h-1 w-full bg-gray-200"></div>
           </div>
 
@@ -14,7 +14,7 @@
 
   <div class="example-sidenav-content">
     <button type="button" matButton (click)="drawer.toggle()">
-      Toggle sidenav
+      <mat-icon aria-hidden="false" aria-label="Example menu icon" fontIcon="menu"></mat-icon>
     </button>
     <div class="h-[100vh] flex flex-col bg-gray-50 rounded-xl p-4 overflow-hidden shadow-lg">
 
@@ -27,17 +27,17 @@
   <!-- Message List -->
   <div class="flex-1 overflow-y-auto space-y-2">
     <div *ngFor="let item of messages">
-      <div [ngClass]="{'text-right': item.sender_id == '1', 'text-left': item.sender_id !== '1'}">
+      <div [ngClass]="{'text-right': item.sender_id == UserData.id, 'text-left': item.sender_id !== UserData.id}">
         <div
           [ngClass]="{
-            'bg-blue-500 text-white ml-auto': item.sender_id == '1',
-            'bg-gray-300 text-black mr-auto': item.sender_id !== '1'
+            'bg-blue-500 text-white ml-auto': item.sender_id == UserData.id,
+            'bg-gray-300 text-black mr-auto': item.sender_id !== UserData.id
           }"
           class="inline-block rounded-2xl px-4 py-2 max-w-xs break-words"
         >
           <div class="text-sm">{{ item.content }}</div>
-          <div class="text-[10px] text-gray-200 text-right mt-1" *ngIf="item.sender_id == '1'">You</div>
-          <div class="text-[10px] text-gray-600 text-left mt-1" *ngIf="item.sender_id !== '1'">{{ item.sender_id }}</div>
+          <div class="text-[10px] text-gray-200 text-right mt-1" *ngIf="item.sender_id == UserData.id">You</div>
+          <div class="text-[10px] text-gray-600 text-left mt-1" *ngIf="item.sender_id !== UserData.id">{{ item.username }}</div>
         </div>
       </div>
     </div>

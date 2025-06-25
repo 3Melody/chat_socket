@@ -22,6 +22,13 @@ export class ChatService implements OnDestroy {
   public messages: Observable<any[]> = this._messages.asObservable();
  private stompClient!: Client;
 
+ private _listFriend : BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+
+ get listFriend(): Observable<any[]> {
+  return this._listFriend.asObservable();
+}
+
+
 
   constructor(private http: HttpClient) {
     this.connectWebSocket();
@@ -41,10 +48,10 @@ if (token) {
   }
 
   // โหลดข้อความเก่าจาก REST API
-  positionWithDropdwn(): Observable<any> {
+  positionWithDropdwn(id : any): Observable<any> {
     const param = {
-        "sender_id": 1,
-  "receiver_id": 2
+        "sender_id": this.UserData.id,
+  "receiver_id": id
     };
     return this.http.get(`${environment.apiUrl}/${this.serviceUrl}/messages` , { params: param}  ).pipe(
       tap((response: any) => {
@@ -81,7 +88,7 @@ if (token) {
   }
 
   // ส่งข้อความผ่าน WebSocket
-  sendMessage(msg: any) {
+  sendMessage(msg: any , id : any ) {
 
     if (this.stompClient && this.stompClient.connected) {
       console.log("🚀 ~ ChatService ~ sendMessage ~ msg:", msg)
@@ -89,18 +96,18 @@ if (token) {
         destination: '/app/sendMessage',
          headers: { priority: '9' },
        body: JSON.stringify({
-    sender: 'Jess',
-    sender_id: 1,
-    receiver_id: 2,
+    sender: '',
+    sender_id: this.UserData.id,
+    receiver_id: id,
     content: msg,
   }),
       });
-        console.log("🚀 ~ ChatService ~ sendMessage ~ JSON.stringify(msg):", JSON.stringify(msg))
-      console.log("🚀 ~ ChatService ~ sendMessage ~ this.stompClient:", this.stompClient)
     } else {
       console.error('WebSocket not connected');
     }
   }
+
+
 
 
 

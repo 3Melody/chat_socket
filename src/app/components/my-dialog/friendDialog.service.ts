@@ -79,8 +79,8 @@ searchListFriend(): Observable<any> {
 
 accept(id : any): Observable<any> {
      const body = {
-      "sender_id" : this.UserData.id,
-      "receiver_id" : id
+      "sender_id" : id,
+      "receiver_id" : this.UserData.id
     }
   return this.http.post(`${environment.apiUrl}/${this.serviceUrl}/accept` ,body).pipe(
     tap((response: any) => {
@@ -94,6 +94,14 @@ return this.http.get(`${environment.apiUrl}/${this.serviceUrl}/pending/${this.Us
   })
 );
 }
+
+ getlistFriend(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/${this.serviceUrl}/list/${this.UserData.id}` ,  ).pipe(
+      tap((response: any) => {
+
+      })
+    );
+  }
 
   ngOnDestroy() {
 

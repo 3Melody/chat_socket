@@ -16,4 +16,40 @@ html {
 }@import "tailwindcss";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+button {
+  cursor: pointer;
+}
+
+* {
+  font-family: 'mitr';
+}
+
+@font-face {
+  font-family: 'PlaypenSansThai';
+  src: url('assent/font/PlaypenSansThai-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PlaypenSansThai';
+  src: url('assent/font/PlaypenSansThai-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'mitr';
+  src: url('assent/Mitr/Mitr-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'mitr';
+  src: url('assent/Mitr/Mitr-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
